@@ -153,10 +153,29 @@
   }
   .open .page-inside {
     width: 50%;
-    padding: clamp(12px,3.5vw,20px) clamp(10px,3vw,16px);
     opacity: 1;
     transition: width .9s cubic-bezier(.4,0,.2,1), padding .9s, opacity .4s .5s;
   }
+  .inside-screen{
+    width:100%;height:100%;display:none;
+    flex-direction:column;align-items:center;justify-content:center;
+    gap: clamp(6px,2vw,10px);
+    padding: clamp(12px,3.5vw,20px) clamp(10px,3vw,16px);
+  }
+  .page-inside.page1 .screen-1,
+  .page-inside.page2 .screen-2{ display:flex; }
+  .nav-arrow{
+    position:absolute;z-index:5;bottom:8px;right:10px;
+    font-size:clamp(1.1rem,3.5vw,1.4rem);cursor:pointer;
+    opacity:.6;transition:opacity .2s;
+  }
+  .nav-arrow:hover{opacity:1;}
+  .ney-row{display:flex;gap:clamp(6px,2vw,12px);justify-content:center;position:relative;z-index:2;}
+  .ney-row .photo-wrap{transform:rotate(-3deg);}
+  .ney-row .photo-wrap:last-child{transform:rotate(3deg);}
+  .ney-row .photo-wrap img{width:clamp(70px,19vw,100px);height:clamp(70px,19vw,100px);object-position:center;}
+  .ney-row .photo-wrap{padding-bottom:34px;}
+  .ney-row .photo-cap{font-size:clamp(.5rem,1.7vw,.62rem);line-height:1.15;padding:0 2px;white-space:normal;}
   .page-inside::before{
     content:'';position:absolute;inset:0;
     background-image:repeating-linear-gradient(transparent,transparent 33px,rgba(232,122,160,.12) 33px,rgba(232,122,160,.12) 34px);
@@ -294,7 +313,8 @@
   </div>
 
   <!-- DENTRO (direita, aparece ao abrir) -->
-  <div class="page-inside" id="pageInside">
+  <div class="page-inside page1" id="pageInside">
+   <div class="inside-screen screen-1">
     <div class="inside-header">📝 Para a tia mais linda 🌹</div>
 
     <div class="photo-wrap">
@@ -311,10 +331,37 @@
 
     <div class="sig">
       <span class="sig-label">com carinho (e a mão tremendo),</span>
-      <span class="sig-name">Paulo 💌</span>
+      <span class="sig-name">Paulo Viuvete 💌</span>
     </div>
 
     <div class="mini-h">❤️<br>🩷<br>💜</div>
+   </div>
+
+   <div class="inside-screen screen-2">
+    <div class="inside-header">📝 Pro Viuvete, com amor 😂</div>
+
+    <div class="ney-row">
+      <div class="photo-wrap">
+        <div class="tape"></div>
+        <img src="neymar1.jpg" alt="Neymar com rosa">
+        <div class="photo-cap">a rosa que ele NÃO te deu 🌹</div>
+      </div>
+      <div class="photo-wrap">
+        <div class="tape"></div>
+        <img src="neymar2.jpg" alt="Neymar fazendo coração">
+        <div class="photo-cap">o coração que ele faz pra mim 💛💚</div>
+      </div>
+    </div>
+
+    <div class="msg-block">
+      <div class="msg-line">Já que você não gosta do <strong>Ney</strong>... eu fico com ele então! 😂⚽</div>
+      <div class="msg-line">Feliz dia dos namorados, <strong>Viuvete</strong>! 💌</div>
+    </div>
+
+    <div class="mini-h">⚽<br>💛<br>💚</div>
+   </div>
+
+   <span class="nav-arrow">➡️</span>
   </div>
 
 </div>
@@ -417,6 +464,16 @@
   wrapper.addEventListener('pointerup', toggle);
   wrapper.style.touchAction = 'manipulation';
   hint.addEventListener('pointerup', e => { e.stopPropagation(); toggle(); });
+
+  // navegação entre as páginas internas
+  const pageInside = document.getElementById('pageInside');
+  const navArrow = pageInside.querySelector('.nav-arrow');
+  navArrow.addEventListener('pointerup', e => {
+    e.stopPropagation();
+    const onPage2 = pageInside.classList.toggle('page2');
+    pageInside.classList.toggle('page1', !onPage2);
+    navArrow.textContent = onPage2 ? '⬅️' : '➡️';
+  });
 </script>
 </body>
 </html>
