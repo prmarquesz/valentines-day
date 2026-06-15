@@ -62,6 +62,12 @@
     width: min(680px, 96vw);
     height: min(420px, 72vw, 80dvh);
   }
+  @media (max-width: 480px) {
+    .card-wrapper.open {
+      height: min(640px, 88dvh);
+    }
+    .open .page-inside { overflow-y: auto; justify-content: flex-start; }
+  }
 
   /* =====================================================
      LEFT PAGE — always the cover
